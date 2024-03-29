@@ -4,10 +4,11 @@
 package org.praktikumtiga;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 
 public class App
 {
-    public static void main(String[] args) throws Exception, NoSuchAlgorithmException
+    public static void main(String[] args)
     {
         PasswordStore pass1 = new PasswordStore("Akun BCA", "1122334455", "RahasiaNegara");
         
