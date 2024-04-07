@@ -52,6 +52,17 @@ public class PasswordStore {
         setCategory(UNCATEGORIZED);
     }
 
+    public PasswordStore(String name, String username, String plainPass, int category, String hashKey, double score)
+    {
+        this.name = name;
+        this.username = username;
+        this.password = plainPass;
+        this.hashKey = hashKey;
+        this.score = score;
+        
+        setCategory(category);
+    }
+
     public void setPassword(String plainPass)
     {
         try
@@ -126,6 +137,26 @@ public class PasswordStore {
         this.score = (len >= 15)
             ? 10
             : result;
+    }
+
+    public String getEncPassword()
+    {
+        return this.password;
+    }
+
+    public String getHashKey()
+    {
+        return this.hashKey;
+    }
+
+    public int getCategoryCode()
+    {
+        return this.category;
+    }
+
+    public double getScore()
+    {
+        return this.score;
     }
 
     @Override

@@ -5,18 +5,24 @@ package org.praktikumtiga;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class App
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
-        PasswordStore pass1 = new PasswordStore("Akun BCA", "1122334455", "RahasiaNegara");
-        
-        pass1.setCategory(PasswordStore.CAT_WEBAPP);
+        ArrayList<PasswordStore> csvData = DataPassword.loadCSVData();
 
-        System.out.println("\n\tEncrypt");
-        System.out.println(pass1);
-        System.out.println("\n\tDecrypt");
-        System.out.println("USERNAME: " + pass1.username + "\nPASSWORD: " + pass1.getPassword());
+        for (PasswordStore i: csvData)
+        {
+            if (!DataPassword.dataPass.contains(i))
+            {
+                DataPassword.dataPass.addAll(csvData);
+            }
+        }
+
+        new MainPage("Password Vault", 70).draw();
+
+        DataPassword.saveCSVData();
     }
 }

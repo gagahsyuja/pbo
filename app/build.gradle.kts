@@ -23,6 +23,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+    implementation("org.apache.commons:commons-csv:1.10.0")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -40,4 +41,8 @@ application {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+tasks.getByName("run", JavaExec::class) {
+    standardInput = System.`in`
 }
