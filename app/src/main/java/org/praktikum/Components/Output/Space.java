@@ -1,6 +1,6 @@
-package org.praktikumtiga;
+package org.praktikum;
 
-public class Space
+public class Space implements Component
 {
     private int width;
 

@@ -1,4 +1,4 @@
-package org.praktikumtiga;
+package org.praktikum;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -14,7 +14,7 @@ import org.apache.commons.csv.CSVPrinter;
 public class DataPassword
 {
     public static final ArrayList<PasswordStore> dataPass = new ArrayList<>();
-    private static final String csvPath = "./src/main/java/org/praktikumtiga/datapassword.csv";
+    private static final String csvPath = "./datapassword.csv";
     private static final String [] headers = {
         "name",
         "username",
@@ -31,33 +31,30 @@ public class DataPassword
             System.out.println("Data kosong");
         }
 
-        else
+        try
         {
-            try
-            {
-                FileWriter writer = new FileWriter("./src/main/java/org/praktikumtiga/datapassword.csv");
-                CSVFormat formatter = CSVFormat.DEFAULT.builder().setHeader(headers).build();
-                CSVPrinter printer = new CSVPrinter(writer, formatter);
+            FileWriter writer = new FileWriter("./datapassword.csv");
+            CSVFormat formatter = CSVFormat.DEFAULT.builder().setHeader(headers).build();
+            CSVPrinter printer = new CSVPrinter(writer, formatter);
 
-                for (PasswordStore pass: dataPass)
-                {
-                    printer.printRecord(
+            for (PasswordStore pass: dataPass)
+            {
+                printer.printRecord(
                         pass.name,
                         pass.username,
                         pass.getEncPassword(),
                         pass.getHashKey(),
                         pass.getCategoryCode(),
                         pass.getScore()
-                    );
-                }
-
-                printer.flush();
+                );
             }
 
-            catch (IOException ioe)
-            {
-                Logger.getLogger(DataPassword.class.getName()).log(Level.SEVERE, null, ioe);
-            }
+            printer.flush();
+        }
+
+        catch (IOException ioe)
+        {
+            Logger.getLogger(DataPassword.class.getName()).log(Level.SEVERE, null, ioe);
         }
     }
 
@@ -82,7 +79,7 @@ public class DataPassword
                             record.get("username"),
                             record.get("password"),
                             Integer.parseInt(record.get("category"))
-                    );
+                            );
                 }
 
                 else
@@ -94,7 +91,7 @@ public class DataPassword
                             Integer.parseInt(record.get("category")),
                             record.get("hashkey"),
                             Double.parseDouble(record.get("score"))
-                    );
+                            );
                 }
 
                 dataPass.add(newPass);
@@ -113,4 +110,4 @@ public class DataPassword
 
         return dataPass;
     }
-}
+    }

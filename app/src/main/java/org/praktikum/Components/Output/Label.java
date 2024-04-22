@@ -1,6 +1,6 @@
-package org.praktikumtiga;
+package org.praktikum;
 
-public class Label
+public class Label implements Component
 {
     private int width;
     public String text;

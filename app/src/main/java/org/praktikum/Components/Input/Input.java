@@ -1,8 +1,8 @@
-package org.praktikumtiga;
+package org.praktikum;
 
 import java.util.Scanner;
 
-public class Input
+public class Input implements Component
 {
     private String label;
     private Scanner input = new Scanner(System.in);

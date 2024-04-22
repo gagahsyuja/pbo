@@ -1,4 +1,4 @@
-package org.praktikumtiga;
+package org.praktikum;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;

@@ -1,6 +1,6 @@
-package org.praktikumtiga;
+package org.praktikum;
 
-public class SelectInput
+public class SelectInput implements Component
 {
     private String [] selection;
     private int width;

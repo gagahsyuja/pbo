@@ -1,6 +1,8 @@
-package org.praktikumtiga;
+package org.praktikum;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class PasswordStore {
 
@@ -23,14 +25,14 @@ public class PasswordStore {
 
         catch (Exception e)
         {
-            System.out.println("Error: " + e);
+            Logger.getLogger(PasswordStore.class.getName()).log(Level.SEVERE, null, e);
         }
 
         this.name = name;
         this.username = username;
         
         setPassword(plainPass);
-        setCategory(category);
+        setCategory(category - 1);
     }
 
     public PasswordStore(String name, String username, String plainPass)
@@ -42,7 +44,7 @@ public class PasswordStore {
 
         catch (Exception e)
         {
-            System.out.println("Error: " + e);
+            Logger.getLogger(PasswordStore.class.getName()).log(Level.SEVERE, null, e);
         }
 
         this.name = name;
@@ -52,15 +54,21 @@ public class PasswordStore {
         setCategory(UNCATEGORIZED);
     }
 
-    public PasswordStore(String name, String username, String plainPass, int category, String hashKey, double score)
+    public PasswordStore(String name, String username, String encPass, int category, String hashKey, double score)
     {
         this.name = name;
         this.username = username;
-        this.password = plainPass;
+        this.password = encPass;
         this.hashKey = hashKey;
         this.score = score;
         
         setCategory(category);
+    }
+
+    public void setEncryptedPassword(String encPass, String hashKey)
+    {
+        this.password = encPass;
+        this.hashKey = hashKey;
     }
 
     public void setPassword(String plainPass)
@@ -68,14 +76,14 @@ public class PasswordStore {
         try
         {
             this.password = Encryptor.encrypt(plainPass, hashKey);
+            calculateScore(plainPass);
         }
 
         catch (Exception e)
         {
-            System.out.println("Error: " + e);
+            Logger.getLogger(PasswordStore.class.getName()).log(Level.SEVERE, null, e);
         }
 
-        calculateScore(plainPass);
     }
 
     public String getPassword()
@@ -87,8 +95,10 @@ public class PasswordStore {
 
         catch (Exception e)
         {
-            return "Error: " + e;
+            Logger.getLogger(PasswordStore.class.getName()).log(Level.SEVERE, null, e);
         }
+
+        return null;
     }
 
     public void setCategory(int category)
@@ -128,15 +138,9 @@ public class PasswordStore {
     {
         double len = plainPass.length();
 
-        double result = (len / 15) * 10;
-
-        String strResult = String.format("%.2f", result);
-
-        result = Double.parseDouble(strResult);
-
         this.score = (len >= 15)
             ? 10
-            : result;
+            : len / 15 * 10;
     }
 
     public String getEncPassword()

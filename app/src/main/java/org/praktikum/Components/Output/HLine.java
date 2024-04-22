@@ -1,6 +1,6 @@
-package org.praktikumtiga;
+package org.praktikum;
 
-public class HLine
+public class HLine implements Component
 {
     private int width;
 
